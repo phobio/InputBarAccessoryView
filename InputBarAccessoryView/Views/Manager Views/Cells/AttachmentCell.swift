@@ -31,7 +31,7 @@ open class AttachmentCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    open let containerView: UIView = {
+    public let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .groupTableViewBackground
