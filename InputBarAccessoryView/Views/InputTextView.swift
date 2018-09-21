@@ -192,7 +192,7 @@ open class InputTextView: UITextView {
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(InputTextView.textViewTextDidChange),
-                                               name: Notification.Name.UITextViewTextDidChange,
+                                               name: UITextView.textDidChangeNotification,
                                                object: nil)
     }
     

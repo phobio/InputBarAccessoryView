@@ -57,13 +57,13 @@ open class AutocompleteManager: NSObject, InputManager, UITableViewDelegate, UIT
     open var autocompletePrefixes: [Character] = ["@", "#"]
     
     /// The default text attributes
-    open var defaultTextAttributes: [NSAttributedStringKey:Any] = [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: .body),
-                                                                   NSAttributedStringKey.foregroundColor : UIColor.black]
+    open var defaultTextAttributes: [NSAttributedString.Key:Any] = [NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: .body),
+                                                                   NSAttributedString.Key.foregroundColor : UIColor.black]
     
     /// The text attributes applied to highlighted substrings for each prefix
-    open var highlightedTextAttributes: [Character:[NSAttributedStringKey:Any]] =
-        ["@":[NSAttributedStringKey.foregroundColor : UIColor(red: 0, green: 122/255, blue: 1, alpha: 1),
-              NSAttributedStringKey.backgroundColor : UIColor(red: 0, green: 122/255, blue: 1, alpha: 0.1)]]
+    open var highlightedTextAttributes: [Character:[NSAttributedString.Key:Any]] =
+        ["@":[NSAttributedString.Key.foregroundColor : UIColor(red: 0, green: 122/255, blue: 1, alpha: 1),
+              NSAttributedString.Key.backgroundColor : UIColor(red: 0, green: 122/255, blue: 1, alpha: 0.1)]]
     
     private var highlightedSubstrings = [Character:[String]]()
     private var autocompleteText = [String]()
@@ -182,8 +182,8 @@ open class AutocompleteManager: NSObject, InputManager, UITableViewDelegate, UIT
     /// Resets the InputTextViews typingAttributes to defaultTextAttributes
     open func resetTypingAttributes() {
         
-        var typingAttributes = [String:Any]()
-        defaultTextAttributes.forEach { typingAttributes[$0.key.rawValue] = $0.value }
+        var typingAttributes = [NSAttributedString.Key:Any]()
+        defaultTextAttributes.forEach { typingAttributes[$0.key] = $0.value }
         inputTextView?.typingAttributes = typingAttributes
     }
     
@@ -332,7 +332,7 @@ open class AutocompleteManager: NSObject, InputManager, UITableViewDelegate, UIT
         
         let matchingRange = (arguments.autocompleteText as NSString).range(of: arguments.filterText, options: .caseInsensitive)
         let attributedString = NSMutableAttributedString().normal(arguments.autocompleteText)
-        attributedString.addAttributes([NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)], range: matchingRange)
+        attributedString.addAttributes([NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)], range: matchingRange)
         let stringWithPrefix = NSMutableAttributedString().normal(String(arguments.prefix))
         stringWithPrefix.append(attributedString)
         cell.textLabel?.attributedText = stringWithPrefix
